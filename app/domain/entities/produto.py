@@ -29,10 +29,16 @@ class Produto:
         """Validações de domínio após inicialização."""
         if self.nome:
             self.nome = self.nome.strip()
+            if len(self.nome) < 2:
+                raise ValueError("Nome deve ter pelo menos 2 caracteres")
+            if len(self.nome) > 100:
+                raise ValueError("Nome deve ter no máximo 100 caracteres")
         if self.preco is not None and not isinstance(self.preco, Decimal):
             self.preco = Decimal(str(self.preco))
         if self.estoque is not None and self.estoque < 0:
             self.estoque = 0
+        if self.preco is not None and self.preco <= 0:
+            raise ValueError("Preço deve ser maior que zero")
 
     # Regras de negócio (domain logic)
 

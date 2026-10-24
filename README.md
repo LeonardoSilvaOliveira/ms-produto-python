@@ -4,6 +4,8 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green?logo=fastapi)](https://fastapi.tiangolo.com)
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0+-red?logo=sqlalchemy)](https://sqlalchemy.org)
 [![Alembic](https://img.shields.io/badge/Alembic-1.13+-orange)](https://alembic.sqlalchemy.org)
+[![CI](https://github.com/LeonardoSilvaOliveira/ms-produto-python/actions/workflows/ci.yml/badge.svg)](https://github.com/LeonardoSilvaOliveira/ms-produto-python/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/LeonardoSilvaOliveira/ms-produto-python)](https://codecov.io/gh/LeonardoSilvaOliveira/ms-produto-python)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 Microsserviço de gerenciamento de produtos construído com **FastAPI**, **SQLAlchemy 2.x** e **Clean Architecture**. Desenvolvido para portfolio e aprendizado avançado de Python.
@@ -216,9 +218,24 @@ pytest --cov=app --cov-report=html
 
 # Apenas testes de integração
 pytest tests/integration -v
+
+# Apenas testes unitários
+pytest tests/unit -v
 ```
 
-> **Nota**: Estrutura de testes preparada, implementação na Fase 4.
+### Estrutura de Testes
+```
+tests/
+├── conftest.py              # Fixtures compartilhadas (DB, client, factories)
+├── unit/                    # Testes unitários (isolados, rápidos)
+│   ├── domain/              # Entidades, exceções, regras de negócio
+│   ├── application/         # DTOs, Services (com mocks)
+│   └── infrastructure/      # Repositories (banco real)
+└── integration/             # Testes de integração (API completa)
+    └── test_produtos_api.py # Endpoints HTTP
+```
+
+**Coverage atual: ~78%** (meta inicial 80%+)
 
 ---
 
@@ -256,7 +273,7 @@ docker run -p 8000:8000 --env-file .env ms-produto
 - [x] **Fase 1**: Clean Architecture + Config + Alembic
 - [ ] **Fase 2**: Autenticação JWT + Roles (ADMIN/USER)
 - [ ] **Fase 3**: Categorias, Paginação, Filtros, Busca
-- [ ] **Fase 4**: Testes (pytest), CI/CD (GitHub Actions), Observabilidade
+- [x] **Fase 4**: Testes (pytest), CI/CD (GitHub Actions), Observabilidade
 - [ ] **Fase 5**: Frontend React + TypeScript + Vite + Tailwind
 
 ---
